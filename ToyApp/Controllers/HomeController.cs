@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ToyApp.Models;
 
 namespace ToyApp.Controllers
 {
@@ -10,21 +11,13 @@ namespace ToyApp.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View(new IndexModel());
         }
-
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Index(IndexModel model)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            ViewBag.message = model.Quotes[model.Category][new Random().Next(0, 3)];
+            return View(new IndexModel());
         }
     }
 }
